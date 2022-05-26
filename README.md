@@ -1,1 +1,1 @@
-# dev_test
+https://djangoforbeginners.com/hello-world/
