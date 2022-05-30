@@ -1,0 +1,100 @@
+{% load crispy_forms_tags %}
+
+<div class="container">
+
+    {% for movie in movieList %}
+
+        <div class="row">
+
+            <div class="col-5">
+                <iframe
+                        width="420"
+                        height="315"
+                        src="{{ movie.url }}">
+                </iframe>
+            </div>
+
+            <div class="col-7">
+
+                <div class="row movie-title">
+
+                    <h3>{{ movie.title }}</h3>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+
+                        Shared by: {{ movie.user }}
+
+                        {% if user.is_authenticated %}
+
+                            {% if not movie.userVote %}
+
+                                <a
+                                        style="color: black;"
+                                        href="/movie/vote?movie_id={{ movie.id }}&vote=1">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                </a>
+
+                                <a
+                                        style="color: black;"
+                                        href="/movie/vote?movie_id={{ movie.id }}&vote=0">
+                                    <i class="fa-solid fa-thumbs-down"></i>
+                                </a>
+
+                            {% else %}
+
+                                {% if movie.voted_up %}
+
+                                    <i
+                                            style="font-size: 1.5em"
+                                            class="fa-solid fa-thumbs-up"></i> (voted up)
+
+                                {% else %}
+
+                                    <i
+                                            style="font-size: 1.5em"
+                                            class="fa-solid fa-thumbs-down"></i> (voted down)
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col">
+
+                        {{ movie.total_vote_up }}<i class="fa-regular fa-thumbs-up"></i>
+                        {{ movie.total_vote_down }}<i class="fa-regular fa-thumbs-down"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    Description:
+
+                </div>
+
+                <div class="row">
+
+                    <h4>{{ movie.description }}</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
